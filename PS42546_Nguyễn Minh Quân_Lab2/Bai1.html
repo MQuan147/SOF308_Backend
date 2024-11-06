@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../CssJsBS/css/bootstrap.min.css" />
+    <!-- my style -->
+    <style>
+      th {
+        background-color: rgb(255, 217, 0) !important;
+        color: #000;
+      }
+      .VTrow:hover,
+      .VTrow:hover + .VTrow {
+        background-color: #4444;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="../CssJsBS/js/bootstrap.bundle.min.js"></script>
+
+    <div class="container text-uppercase">
+      <div class="title">bảng thành phần dinh dưỡng</div>
+      <table class="table table-bordered text-center align-middle table-hover">
+        <thead class="table-warning">
+          <tr>
+            <th rowspan="2" class="align-middle">Thành Phần</th>
+            <th colspan="2">Giá Trị</th>
+          </tr>
+          <tr>
+            <th>Khối Lượng</th>
+            <th>% DV*</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Calories</td>
+            <td>200 kcal</td>
+            <td>20%</td>
+          </tr>
+          <tr>
+            <td>Chất Béo</td>
+            <td>9 g</td>
+            <td>14%</td>
+          </tr>
+          <tr>
+            <td>Chất Béo Bão Hòa</td>
+            <td>4 g</td>
+            <td>20%</td>
+          </tr>
+          <tr>
+            <td>Chất Đạm</td>
+            <td>8 g</td>
+            <td>16%</td>
+          </tr>
+          <tr>
+            <td>Chất Xơ</td>
+            <td>5 g</td>
+            <td>20%</td>
+          </tr>
+          <tr>
+            <td>Đường</td>
+            <td>12 g</td>
+            <td>-</td>
+          </tr>
+          <tr class="VTrow">
+            <td rowspan="2">Vitamin</td>
+            <td>Vitamin C</td>
+            <td>25%</td>
+          </tr>
+          <tr class="VTrow">
+            <td>Vitamin D</td>
+            <td>10%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

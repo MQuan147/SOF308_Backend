@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 2 - Giao Diện Đăng Ký và Đăng Nhập</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h3 class="text-center">Thông Tin Tài Khoản</h3>
+
+    
+    
+
+        <!-- Form Đăng Nhập -->
+            <form class="row g-3 mt-3 needs-validation" novalidate>
+                <div class="col-12">
+                    <label for="loginEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="loginEmail" placeholder="Nhập email của bạn" required>
+                    <div class="invalid-feedback">Vui lòng nhập email hợp lệ.</div>
+                </div>
+                <div class="col-12">
+                    <label for="loginPassword" class="form-label">Mật khẩu</label>
+                    <input type="password" class="form-control" id="loginPassword" placeholder="Nhập mật khẩu" required>
+                    <div class="invalid-feedback">Vui lòng nhập mật khẩu.</div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Đăng Nhập</button>
+                </div>
+            </form>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
