@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- BS style -->
+    <link rel="stylesheet" href="../CssJsBS/css/bootstrap.min.css" />
+    <!-- My style -->
+    <link rel="stylesheet" href="myStyle.css" />
+  </head>
+  <body>
+    <script src="../CssJsBS/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Nav -->
+    <div id="include-nav"></div>
+    <!-- Carousel -->
+    <div id="include-carousel"></div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light p-3 mt-4">
+      <div class="container text-center">
+        <p>&copy;Copyright by FPT Polytechnic</p>
+      </div>
+    </footer>
+
+    <!-- Override JS -->
+    <script>
+      function includeHTML(id, file) {
+        fetch(file)
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById(id).innerHTML = data;
+          })
+          .catch((error) => console.error("Error loading include:", error));
+      }
+
+      // Gọi hàm để chèn nội dung từ file "content.html" vào phần tử có id "include-content"
+      includeHTML("include-nav", "./content/nav.html");
+      includeHTML("include-carousel", "./content/Carousel.html");
+    </script>
+  </body>
+</html>

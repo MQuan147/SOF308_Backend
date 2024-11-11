@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- BS style -->
+    <link rel="stylesheet" href="../CssJsBS/css/bootstrap.min.css" />
+    <!-- My style -->
+    <link rel="stylesheet" href="myStyle.css" />
+  </head>
+  <body>
+    <script src="../CssJsBS/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Nav -->
+    <div id="include-nav"></div>
+    <!-- Carousel -->
+    <div id="include-carousel"></div>
+
+    <div class="container mt-4">
+      <div class="row">
+        <!-- info -->
+        <div id="include-info" class="col-md-4"></div>
+        <!-- blog card -->
+        <div id="include-blogCard" class="col-md-8"></div>
+      </div>
+      <div class="row">
+        <!-- tabs card -->
+        <div class="col-md-4">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link active fs-3 fw-bow text-info"
+                id="home-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#home-tab-pane"
+                type="button"
+                role="tab"
+                aria-controls="home-tab-pane"
+                aria-selected="true"
+              >
+                Đọc nhiều
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link fs-3 fw-bow text-info"
+                id="profile-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#profile-tab-pane"
+                type="button"
+                role="tab"
+                aria-controls="profile-tab-pane"
+                aria-selected="false"
+              >
+                Xem nhiều
+              </button>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div
+              class="tab-pane fade show active"
+              id="home-tab-pane"
+              role="tabpanel"
+              aria-labelledby="home-tab"
+              tabindex="0"
+            >
+              <div id="include-read"></div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="profile-tab-pane"
+              role="tabpanel"
+              aria-labelledby="profile-tab"
+              tabindex="0"
+            >
+              <dic id="include-view"></dic>
+            </div>
+          </div>
+        </div>
+        <!-- video -->
+        <div id="include-video" class="col-md-8"></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light p-3 mt-4">
+      <div class="container text-center">
+        <p>&copy;Copyright by FPT Polytechnic</p>
+      </div>
+    </footer>
+
+    <!-- Override JS -->
+    <script>
+      function includeHTML(id, file) {
+        fetch(file)
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById(id).innerHTML = data;
+          })
+          .catch((error) => console.error("Error loading include:", error));
+      }
+
+      includeHTML("include-read", "./content/tabs/read.html");
+      includeHTML("include-view", "./content/tabs/view.html");
+      includeHTML("include-info", "./content/info.html");
+      includeHTML("include-nav", "./content/nav.html");
+      includeHTML("include-blogCard", "./content/blogCard.html");
+      includeHTML("include-carousel", "./content/Carousel.html");
+      includeHTML("include-video", "./content/video.html");
+    </script>
+  </body>
+</html>

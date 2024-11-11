@@ -1,0 +1,33 @@
+/* .nav-link:hover {
+  color: green !important;
+} */
+.logo {
+  width: 100px;
+  height: 30px;
+}
+
+.navbar-dark {
+  background-color: aliceblue;
+  box-shadow: 1px 1px 2px 1px lightgray;
+}
+.nav-link {
+  color: black;
+}
+.nav-link:hover {
+  color: green !important;
+}
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.show {
+  color: green;
+}
+.list-group-item.active {
+  background-color: var(--bs-info);
+  color: black;
+  border-color: #007bff;
+}
+
+.btn-primary {
+  background-color: var(--bs-info);
+  border-color: var(--bs-info);
+  color: black;
+}
