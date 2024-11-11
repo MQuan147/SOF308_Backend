@@ -21,9 +21,9 @@
   color: green;
 }
 .list-group-item.active {
-  background-color: var(--bs-info);
-  color: black;
-  border-color: #007bff;
+  background-color: var(--bs-info) !important;
+  color: black !important;
+  border-color: #007bff !important;
 }
 
 .btn-primary {

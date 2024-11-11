@@ -5,8 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="../CssJsBS/css/bootstrap.min.css" />
+    <!-- Override style -->
+    <link rel="stylesheet" href="./myStyle.css" />
   </head>
   <body>
+    <!-- nav -->
+    <div id="include-nav"></div>
+    <!-- carousel -->
+    <div id="include-carousel" class="mb-4"></div>
+    <!-- category -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div id="include-category"></div>
+          <div id="include-news"></div>
+        </div>
+        <div id="include-allNews" class="col-md-8"></div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer class="bg-dark text-light p-3 mt-4">
+      <div class="container text-center">
+        <p>&copy;Copyright by FPT Polytechnic</p>
+      </div>
+    </footer>
     <script src="../CssJsBS/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Override JS -->
+    <script>
+      function includeHTML(id, file) {
+        fetch(file)
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById(id).innerHTML = data;
+          })
+          .catch((error) => console.error("Error loading include:", error));
+      }
+
+      includeHTML("include-read", "./content/tabs/read.html");
+      includeHTML("include-view", "./content/tabs/view.html");
+      includeHTML("include-info", "./content/info.html");
+      includeHTML("include-nav", "./content/nav.html");
+      includeHTML("include-blogCard", "./content/blogCard.html");
+      includeHTML("include-carousel", "./content/carousel.html");
+      includeHTML("include-video", "./content/video.html");
+      includeHTML("include-category", "./content/category.html");
+      includeHTML("include-news", "./content/news.html");
+      includeHTML("include-allNews", "./content/allNews.html");
+      includeHTML("include-icon", "./content/icon.html");
+    </script>
   </body>
 </html>
