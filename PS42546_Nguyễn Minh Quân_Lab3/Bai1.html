@@ -6,7 +6,7 @@
     <title>Document</title>
     <!-- BS style -->
     <link rel="stylesheet" href="../CssJsBS/css/bootstrap.min.css" />
-    <!-- My style -->
+    <!-- Override style -->
     <link rel="stylesheet" href="myStyle.css" />
   </head>
   <body>
@@ -32,10 +32,9 @@
           .then((data) => {
             document.getElementById(id).innerHTML = data;
           })
-          .catch((error) => console.error("Error loading include:", error));
+          .catch((error) => console.error("Lỗi:", error));
       }
 
-      // Gọi hàm để chèn nội dung từ file "content.html" vào phần tử có id "include-content"
       includeHTML("include-nav", "./content/nav.html");
       includeHTML("include-carousel", "./content/Carousel.html");
     </script>

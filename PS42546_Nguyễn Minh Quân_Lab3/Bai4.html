@@ -113,7 +113,16 @@
           .then((data) => {
             document.getElementById(id).innerHTML = data;
           })
-          .catch((error) => console.error("Error loading include:", error));
+          .catch((error) => console.error("Lỗi:", error));
+      }
+
+      function includeHTML(id, file) {
+        fetch(file)
+          .then((respon) => respon.text())
+          .then((data) => {
+            document.getElementById(id).innerHTML = data;
+          })
+          .catch((error) => console.error("Lỗi:", error));
       }
 
       includeHTML("include-read", "./content/tabs/read.html");
