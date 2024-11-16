@@ -16,7 +16,7 @@
         <span>L</span>
         <span>O</span>
         <span>G</span>
-        <span>Y</span>
+        <span>Y </span>
         <span> </span>
         <span>B</span>
         <span>L</span>

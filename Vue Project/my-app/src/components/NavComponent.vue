@@ -115,7 +115,15 @@
               Tài khoản
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Đăng nhập</a></li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  @click.prevent="showLoginForm = true"
+                >
+                  Đăng nhập
+                </a>
+              </li>
               <li><a class="dropdown-item" href="#">Quên mật khẩu</a></li>
               <li><hr class="dropdown-divider" /></li>
               <li>
@@ -136,11 +144,28 @@
       </div>
     </div>
   </nav>
+  <!--  -->
+  <LoginFormComponent v-if="showLoginForm" @close="closeLoginForm" />
 </template>
 
 <script>
+import LoginFormComponent from "./LoginFormComponent.vue";
+
 export default {
   name: "NavComponent",
+  components: {
+    LoginFormComponent,
+  },
+  data() {
+    return {
+      showLoginForm: false,
+    };
+  },
+  methods: {
+    closeLoginForm() {
+      this.showLoginForm = false;
+    },
+  },
 };
 </script>
 
@@ -148,13 +173,17 @@ export default {
 @import "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css";
 @import "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css";
 
-/* Đảm bảo nền xanh dương phủ toàn bộ chiều rộng */
 .custom-navbar {
   background-color: #cce5ff;
   width: 100vw;
   z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
+
 nav {
-  margin-top: 120px; /* Khoảng cách tương đương chiều cao của header */
+  margin-top: 120px;
 }
 </style>

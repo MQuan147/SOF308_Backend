@@ -1,44 +1,7 @@
 <template>
   <section>
     <!-- Thêm nhiều phần tử span để tạo nền động -->
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
-    <span></span> <span></span> <span></span> <span></span> <span></span>
+
     <!-- Tiếp tục với các phần tử span khác -->
   </section>
 </template>
