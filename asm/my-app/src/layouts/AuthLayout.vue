@@ -6,10 +6,8 @@
 
 <script>
 export default {
-  name: 'AuthLayout',
-}
+  name: "AuthLayout",
+};
 </script>
 
-<style scoped>
-/* Thêm các style tùy chỉnh cho layout nếu cần */
-</style>
+<style scoped></style>

@@ -3,30 +3,36 @@
     class="header-container d-flex align-items-center justify-content-between border-bottom"
   >
     <div class="img">
-      <img class="logo" src="../assets/images/logoTechnology.png" alt="Logo" />
+      <router-link to="/"
+        ><img class="logo" src="../assets/images/logoTechnology.png" alt="Logo"
+      /></router-link>
     </div>
     <div>
-      <h1 class="animate__animated animate__fadeIn wave-text">
-        <span>T</span>
-        <span>E</span>
-        <span>C</span>
-        <span>H</span>
-        <span>N</span>
-        <span>O</span>
-        <span>L</span>
-        <span>O</span>
-        <span>G</span>
-        <span>Y </span>
-        <span> </span>
-        <span>B</span>
-        <span>L</span>
-        <span>O</span>
-        <span>G</span>
-      </h1>
+      <router-link to="/">
+        <h1 class="animate__animated animate__fadeIn wave-text">
+          <span>T</span>
+          <span>E</span>
+          <span>C</span>
+          <span>H</span>
+          <span>N</span>
+          <span>O</span>
+          <span>L</span>
+          <span>O</span>
+          <span>G</span>
+          <span>Y </span>
+          <span>-</span>
+          <span>B</span>
+          <span>L</span>
+          <span>O</span>
+          <span>G</span>
+        </h1>
+      </router-link>
     </div>
     <div class="border p-3 rounded-pill">
       <header class="d-flex align-items-center justify-content-end">
-        <span class="badge bg-danger text-white d-flex align-items-center">
+        <span
+          class="badge bg-info text-white d-flex align-items-center current-time"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -42,7 +48,7 @@
               d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"
             />
           </svg>
-          <i class="bi bi-clock me-1"></i> January 11, 2023
+          <i class="me-1"></i> {{ currentTime }}
         </span>
         <span class="separator"></span>
         <div class="ms-2 mb-2">
@@ -63,7 +69,7 @@
             </i>
           </a>
           <a href="#" class="text-dark text-decoration-none me-3">
-            <i class="bi bi-whatsapp">
+            <i class="bi bi-instagram">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -110,7 +116,7 @@
               </svg> </i
           ></a>
           <a href="#" class="text-dark text-decoration-none me-3">
-            <i class="bi bi-instagram">
+            <i class="bi bi-whatsapp">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -134,6 +140,29 @@
 <script>
 export default {
   name: "HeaderComponent",
+  data() {
+    return {
+      currentTime: "",
+    };
+  },
+  methods: {
+    updateTime() {
+      const now = new Date();
+      const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        // hour: "2-digit",
+        // minute: "2-digit",
+        // second: "2-digit",
+      };
+      this.currentTime = now.toLocaleString("en-US", options);
+    },
+  },
+  mounted() {
+    this.updateTime();
+    setInterval(this.updateTime, 1000);
+  },
 };
 </script>
 
@@ -149,7 +178,7 @@ export default {
 }
 body {
   font-family: "Poppins", sans-serif;
-  background-color: #f0f0f0; /* Màu nền sáng */
+  background-color: #f0f0f0;
   margin: 0;
   padding: 0;
   display: flex;
@@ -164,22 +193,20 @@ body {
   left: 0;
   width: 100%;
   z-index: 9999;
-  height: 90px; /* Đặt chiều cao cho header */
+  height: 90px;
 }
 
-/* Tiêu đề trang web */
 h1 {
   font-family: "Montserrat", sans-serif;
   font-size: 60px;
-  color: #2c3e50; /* Màu đậm cho tiêu đề */
+  color: #2c3e50;
   margin: 0;
   padding: 0;
-  text-transform: uppercase; /* In hoa toàn bộ */
-  letter-spacing: 3px; /* Khoảng cách giữa các chữ */
-  animation: fadeIn 2s ease-out; /* Hiệu ứng động khi hiển thị */
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  animation: fadeIn 2s ease-out;
 }
 
-/* Hiệu ứng fadeIn */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -189,16 +216,14 @@ h1 {
   }
 }
 
-/* Tiêu đề phụ */
 h2 {
   font-family: "Poppins", sans-serif;
   font-size: 30px;
-  color: #16a085; /* Màu xanh tươi */
+  color: #16a085;
   margin-top: 10px;
   animation: slideIn 1s ease-out;
 }
 
-/* Hiệu ứng slideIn */
 @keyframes slideIn {
   from {
     transform: translateY(-50px);
@@ -210,7 +235,6 @@ h2 {
   }
 }
 
-/* Hiệu ứng gợn sóng cho chữ */
 .wave-text {
   display: inline-block;
 }
@@ -220,7 +244,6 @@ h2 {
   animation: wave 1.5s ease-in-out infinite;
 }
 
-/* Hiệu ứng gợn sóng */
 @keyframes wave {
   0%,
   100% {
@@ -231,7 +254,6 @@ h2 {
   }
 }
 
-/* Điều chỉnh thời gian bắt đầu khác nhau cho từng chữ */
 .wave-text span:nth-child(1) {
   animation-delay: 0s;
 }

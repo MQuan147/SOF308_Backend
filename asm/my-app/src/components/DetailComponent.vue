@@ -68,8 +68,8 @@
           <div class="card-body">
             <h5 class="card-title">Bài viết 1</h5>
             <p class="card-text">
-              Đây là một bài viết nổi bật với nội dung tóm tắt giúp người đọc
-              biết thêm thông tin về bài viết.
+              Nội dung Nội dung Nội dung Nội dung Nội dung Nội dung Nội dung Nội
+              dung Nội dung Nội dung
             </p>
             <a href="#" class="btn btn-primary">Xem chi tiết</a>
           </div>
@@ -125,7 +125,7 @@
               placeholder="Nhập bình luận của bạn"
             ></textarea>
           </div>
-          <button type="submit" class="btn btn-success">Gửi bình luận</button>
+          <button type="submit" class="btn">Gửi bình luận</button>
         </form>
 
         <h5 class="mt-4">Danh sách các bình luận:</h5>
@@ -148,52 +148,41 @@ export default {
 .container {
   color: white !important;
   margin-top: 170px;
-  position: relative; /* Đảm bảo container có vị trí để điều chỉnh z-index */
-  z-index: 2; /* Đảm bảo nó ở trên nền */
-  background-color: rgba(
-    3,
-    2,
-    2,
-    0.7
-  ); /* Nền trắng mờ chung cho tất cả các form */
+  position: relative;
+  z-index: 2;
+  background-color: rgba(3, 2, 2, 0.7);
   padding: 20px;
   border-radius: 10px;
 }
 
-/* Sửa lại các phần của bài viết, không cần nền riêng biệt nữa */
 .my-4,
 .col-md-4,
 .row.mt-4 .col-md-8 {
-  background-color: transparent; /* Không cần nền riêng cho các phần này */
+  background-color: transparent;
   padding: 20px;
   border-radius: 10px;
 }
 
-/* Tăng cường độ mờ khi di chuột qua */
-/* .my-4:hover,
-.col-md-4:hover,
-.row.mt-4 .col-md-8:hover {
-  background-color: rgba(255, 255, 255, 0.85); 
-} */
-
-/* Card bài viết nổi bật */
 .card {
-  background-color: transparent; /* Xóa nền cho card */
+  background-color: transparent;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: none; /* Xóa bóng của card */
+  box-shadow: none;
 }
 
 .card-img-top {
-  border-radius: 10px 10px 0 0; /* Bo góc cho hình ảnh */
+  border-radius: 10px 10px 0 0;
 }
 
 .card-body {
   padding: 15px;
 }
 
-.card-body .btn {
-  background-color: #007bff; /* Màu nền cho nút */
-  color: white; /* Màu chữ cho nút */
+.btn {
+  background-color: #007bff;
+  color: white;
+}
+.card {
+  color: white;
 }
 </style>

@@ -71,20 +71,19 @@ body {
   margin: 0;
 }
 
-/* Cấu hình section với nền động */
 section {
   background-color: black;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2px;
   flex-wrap: wrap;
-  z-index: 1; /* Đảm bảo nền có z-index thấp hơn các phần tử khác */
+  z-index: 1;
 }
 
 section::before {
@@ -117,8 +116,8 @@ section span {
   z-index: 2;
   transition: 1.5s;
 }
-section span:hover {
+/* section span:hover {
   background: #00f;
   transition: 0s;
-}
+} */
 </style>

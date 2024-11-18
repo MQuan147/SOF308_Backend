@@ -174,7 +174,7 @@ export default {
 @import "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css";
 
 .custom-navbar {
-  background-color: #cce5ff;
+  background-color: #cff4fc !important;
   width: 100vw;
   z-index: 1000;
   position: fixed;

@@ -11,7 +11,7 @@
           <div class="row g-4">
             <div class="col-md-12">
               <div class="card mb-3">
-                <div class="row">
+                <div class="row g-0">
                   <div class="col-md-4">
                     <img
                       src="../assets/images/miniCard7.png"
@@ -42,7 +42,7 @@
           <div class="row g-4">
             <div class="col-md-12">
               <div class="card mb-3">
-                <div class="row">
+                <div class="row g-0">
                   <div class="col-md-4">
                     <img
                       src="../assets/images/miniCard6.png"
@@ -73,7 +73,7 @@
           <div class="row g-4">
             <div class="col-md-12">
               <div class="card mb-3">
-                <div class="row">
+                <div class="row g-0">
                   <div class="col-md-4">
                     <img
                       src="../assets/images/miniCard5.png"
@@ -238,6 +238,29 @@ section {
 }
 .card-img-top {
   border-radius: 15px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-img-top:hover {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 .category-badge {
   position: absolute;

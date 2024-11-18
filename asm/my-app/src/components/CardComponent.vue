@@ -2,30 +2,31 @@
   <div class="container my-5">
     <div class="row g-3">
       <!-- Main Card -->
-      <div class="col-lg-8">
+      <div class="col-lg-8" v-if="mainArticle">
         <div class="card rounded-card position-relative">
-          <img
-            src="../assets/images/cpu.png"
-            class="card-img-top"
-            alt="Main Article"
-          />
+          <router-link :to="`/detail/${mainArticle.id}`">
+            <img
+              src="../assets/images/cpu.png"
+              class="card-img-top"
+              :alt="mainArticle.title"
+            />
+          </router-link>
           <div class="text-overlay">
-            <span class="badge badge-custom">Technology</span>
+            <span class="badge badge-custom">{{
+              mainArticle.category || "General"
+            }}</span>
             <h5 class="card-title hover-text-danger">
-              <router-link to="./views/Detail.vue"
-                >Trên tay ASUS TUF Gaming VG1A phiên bản 30 inch - giải trí thì
-                khỏi phải bàn</router-link
-              >
+              <router-link :to="`/detail/${mainArticle.id}`">
+                {{ mainArticle.title }}
+              </router-link>
             </h5>
             <p class="card-text hover-text-danger">
-              ASUS TUF Gaming VG1A mã VG30VQL1A có thiết kế màn hình dài và
-              cong. Không có quá nhiều đường cắt xẻ như các sản phẩm ROG. Đi kèm
-              màn hình là chiếc chân đế. Chân đế rất chắc chắn. Đặc biệt là với
-              chiếc chân đế này thì bạn có thể dùng màn hình ngang hoặc dọc cực
-              kì linh hoạt. Với khả năng linh hoạt này thì bạn hoàn toàn có thể
-              thiết lập góc làm việc tuỳ ý.
+              {{ mainArticle.content }}
             </p>
-            <small>BY Tao Viết &bullet; January 11, 2024</small>
+            <small
+              >BY {{ mainArticle.author }} &bullet;
+              {{ mainArticle.date }}</small
+            >
           </div>
         </div>
       </div>
@@ -61,7 +62,7 @@
               href=""
               class="text-white text-decoration-none hover:text-primary"
               ><h6 class="card-title">
-                Trên tay TP-Link Archer Air R5 – mỏng, gọn, và bạn sẽ không nghĩ
+                Trên tay TP-Link Archer Air R5 - mỏng, gọn, và bạn sẽ không nghĩ
                 nó là 1 chiếc router wifi
               </h6></a
             >
@@ -76,6 +77,35 @@
 <script>
 export default {
   name: "CardComponent",
+  data() {
+    return {
+      articles: [],
+      mainArticle: null,
+      sideArticles: [],
+      imageBaseUrl: "../assets/images/",
+    };
+  },
+  methods: {
+    async fetchArticles() {
+      try {
+        const response = await fetch("http://localhost:3000/articles");
+        const data = await response.json();
+        this.articles = data;
+
+        this.mainArticle = this.articles[0];
+        this.sideArticles = this.articles.slice(1);
+
+        this.articles.forEach((article) => {
+          article.fullImageUrl = this.imageBaseUrl + article.image;
+        });
+      } catch (error) {
+        console.error("Lỗi khi gọi API:", error);
+      }
+    },
+  },
+  created() {
+    this.fetchArticles();
+  },
 };
 </script>
 
@@ -103,5 +133,21 @@ export default {
 
 section {
   z-index: 1;
+}
+
+.card-title a {
+  color: white;
+  text-decoration: none;
+}
+.card-img-top {
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-img-top:hover {
+  transform: scale(1.1);
+}
+/*  */
+.text-overlay {
+  background-color: rgba(2, 2, 2, 0.8);
 }
 </style>

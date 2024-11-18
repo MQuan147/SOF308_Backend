@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DetailComponent />
+    <DetailComponent :id="articleId" />
   </div>
 </template>
 
@@ -8,8 +8,18 @@
 import DetailComponent from "@/components/DetailComponent.vue";
 
 export default {
+  name: "Detail",
   components: {
     DetailComponent,
+  },
+  data() {
+    return {
+      articleId: null,
+    };
+  },
+  created() {
+    // Lấy `id` từ tham số URL khi người dùng truy cập vào trang
+    this.articleId = this.$route.params.id;
   },
 };
 </script>

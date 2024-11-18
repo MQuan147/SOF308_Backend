@@ -42,10 +42,9 @@ export default {
   },
   methods: {
     handleLogin() {
-      // Xử lý logic đăng nhập
       console.log("Đăng nhập với:", this.email, this.password);
       alert("Đăng nhập thành công!");
-      this.$emit("close"); // Đóng form sau khi đăng nhập
+      this.$emit("close");
     },
   },
 };

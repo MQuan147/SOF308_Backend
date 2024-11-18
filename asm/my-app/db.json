@@ -1,0 +1,20 @@
+{
+  "articles": [
+    {
+      "id": 1,
+      "title": "Trên tay ASUS TUF Gaming VG1A phiên bản 30 inch",
+      "content": "ASUS TUF Gaming VG1A có thiết kế màn hình cong...",
+      "author": "Tao Viết",
+      "date": "January 11, 2024",
+      "image": "../assets/images/cpu.png"
+    },
+    {
+      "id": 2,
+      "title": "Trên tay ROG Harpe Ace Mini",
+      "content": "Chuột hiệu năng cao dành cho người dùng tay nhỏ...",
+      "author": "Tao Viết",
+      "date": "January 11, 2024",
+      "image": "../assets/images/cpu1.png"
+    }
+  ]
+}
