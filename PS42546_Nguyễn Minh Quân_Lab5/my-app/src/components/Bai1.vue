@@ -9,9 +9,13 @@
 
 <script setup>
 import { ref } from "vue";
-const message = ref("Thông điệp ban đầu");
+
+const firstMessage = "Thông điệp ban đầu";
+const secondMessage = "Thông điệp đã được thay đổi";
+
+const message = ref(firstMessage);
 const updateMessage = () => {
-  message.value = "Thông điệp đã được thay đổi!";
+  message.value = message.value === firstMessage ? secondMessage : firstMessage;
 };
 </script>
 
