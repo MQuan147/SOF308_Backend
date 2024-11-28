@@ -7,16 +7,22 @@ import UserProfile from "../views/UserProfile.vue";
 import Login from "../views/LoginView.vue";
 import Dashboard from "../views/DashboardView.vue";
 import UserSettings from "../views/UserSettings.vue";
+import Admin from "../views/Admin.vue";
 
 const routes = [
   { path: "/", name: "Home", component: Home },
-  { path: "/blog", name: "BlogList", component: BlogList },
+  {
+    path: "/blog",
+    name: "BlogList",
+    component: BlogList,
+  },
   {
     path: "/blog/:id",
     name: "BlogPost",
     component: BlogPost,
-    props: (route) => ({ blog: route.params.blogData }),
+    props: true,
   },
+
   { path: "/:pathMatch(.*)*", redirect: "/" },
 
   {

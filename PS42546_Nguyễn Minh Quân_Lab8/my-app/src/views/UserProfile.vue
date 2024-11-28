@@ -4,7 +4,6 @@
     <h2>User Profile</h2>
     <br />
     <form>
-      <!-- Avatar -->
       <div class="mb-3">
         <label for="avatar" class="form-label">Avatar</label>
         <img

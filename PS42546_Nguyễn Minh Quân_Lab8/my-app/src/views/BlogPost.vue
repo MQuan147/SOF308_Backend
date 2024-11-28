@@ -1,20 +1,23 @@
 <template>
   <div class="container mt-5">
-    <h1 class="display-5">Blog Post {{ id }}</h1>
-    <p class="mt-3">This is the content of the blog post with ID {{ id }}.</p>
-    <router-link to="/blog" class="btn btn-secondary mt-3"
-      >Back to Blog List</router-link
-    >
+    <h1 class="mb-4">{{ blog.title }}</h1>
+    <img :src="blog.imageUrl" alt="Blog Image" class="img-fluid rounded" />
+    <div class="mt-4">
+      <p>{{ blog.content }}</p>
+    </div>
   </div>
 </template>
 
 <script>
-import { useRoute } from "vue-router";
+import { useBlogStore } from "../stores/blog";
 
 export default {
-  setup() {
-    const route = useRoute();
-    return { id: route.params.id };
+  props: ["id"],
+  computed: {
+    blog() {
+      const store = useBlogStore();
+      return store.blogs.find((blog) => blog.id === parseInt(this.id));
+    },
   },
 };
 </script>

@@ -22,6 +22,11 @@
               >
             </li>
             <li class="nav-item">
+              <a class="nav-link active" href="#"
+                ><router-link to="/blog">Blog List</router-link></a
+              >
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="#"
                 ><router-link to="/login">Login</router-link></a
               >

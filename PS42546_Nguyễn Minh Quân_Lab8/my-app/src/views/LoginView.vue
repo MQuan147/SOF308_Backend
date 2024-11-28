@@ -25,10 +25,10 @@
           required
         />
       </div>
-      <button @click="login" class="btn btn-success w-100">Login</button>
+      <button @click="login" class="btn btn-primary w-100">Login</button>
       <div class="text-center mt-3">
         <router-link to="/register" class="text-decoration-none"
-          >Don't have an account? Register</router-link
+          >Bạn không có tài khoản? Kệ bạn!</router-link
         >
       </div>
     </div>
@@ -48,7 +48,7 @@ export default {
     login() {
       if (this.email === "quannguyen@gmail.com" && this.password === "123456") {
         localStorage.setItem("isAuthenticated", true);
-        alert("Login successful!");
+        alert("Đăng nhập thành công");
         this.$router.push({ name: "Dashboard" });
       } else {
         alert("Invalid email or password!");
