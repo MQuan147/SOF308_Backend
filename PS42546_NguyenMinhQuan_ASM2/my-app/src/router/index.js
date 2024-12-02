@@ -13,6 +13,20 @@ import BlogManagement from "../views/BlogManagement.vue";
 import CommentManagement from "../views/CommentManagement.vue";
 import HomeViews from "../views/HomeViews.vue";
 
+const checkAdmin = (to, from, next) => {
+  const email = localStorage.getItem("email");
+  const isAdmin = email === "admin@gmail.com";
+
+  if (isAdmin) {
+    next();
+  } else {
+    localStorage.removeItem("email");
+    localStorage.removeItem("name");
+    alert("Phát hiện nghi vấn hack! Đăng xuất!");
+    next({ name: "Login" });
+  }
+};
+
 const routes = [
   { path: "/", name: "Home", component: HomeViews },
   {
@@ -24,6 +38,7 @@ const routes = [
     path: "/comment-manage",
     name: "CommentManagement",
     component: CommentManagement,
+    beforeEnter: checkAdmin,
   },
   {
     path: "/blog-manage",
@@ -44,6 +59,7 @@ const routes = [
     path: "/account-manage",
     name: "AccountManagement",
     component: AccountManagement,
+    beforeEnter: checkAdmin,
   },
   {
     path: "/blog/:id",
@@ -67,7 +83,19 @@ const routes = [
       },
     ],
   },
-  { path: "/login", name: "Login", component: Login },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/LoginView.vue"),
+    beforeEnter: (to, from, next) => {
+      const email = localStorage.getItem("email");
+      if (email) {
+        next({ name: "Home" });
+      } else {
+        next();
+      }
+    },
+  },
   {
     path: "/dashboard",
     name: "Dashboard",

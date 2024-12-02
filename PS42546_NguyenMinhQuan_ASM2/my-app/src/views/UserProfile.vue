@@ -5,27 +5,6 @@
     <br />
     <form @submit.prevent="updateProfile">
       <div class="mb-3">
-        <label for="avatar" class="form-label">Avatar</label>
-        <img
-          :src="user.avatar || '../assets/images/image.png'"
-          alt="Avatar Preview"
-          class="mt-2"
-          style="
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 50%;
-          "
-        />
-        <input
-          type="file"
-          class="form-control mt-2"
-          @change="handleAvatarChange"
-          accept="image/*"
-        />
-      </div>
-
-      <div class="mb-3">
         <label for="name" class="form-label">Họ Tên</label>
         <input
           type="text"
@@ -89,7 +68,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-// Trạng thái người dùng
 const user = ref({
   name: "",
   email: "",
@@ -99,7 +77,6 @@ const user = ref({
   avatar: "",
 });
 
-// Tải thông tin người dùng từ localStorage
 const loadUserProfile = () => {
   const email = localStorage.getItem("email");
   const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -110,19 +87,6 @@ const loadUserProfile = () => {
   }
 };
 
-// Xử lý thay đổi avatar
-const handleAvatarChange = (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      user.value.avatar = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-};
-
-// Cập nhật thông tin người dùng
 const updateProfile = () => {
   const users = JSON.parse(localStorage.getItem("users")) || [];
   const index = users.findIndex((u) => u.email === user.value.email);
@@ -144,10 +108,15 @@ onMounted(() => {
 .container {
   max-width: 1600px;
   width: 800px;
+  margin-top: 120px !important;
 }
 
 img {
   max-width: 100%;
   height: auto;
+}
+label,
+h2 {
+  color: white;
 }
 </style>

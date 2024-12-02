@@ -1,7 +1,6 @@
 <template>
   <br /><br />
   <div class="container mt-12 d-flex justify-content-between">
-    <!-- Form đăng nhập nằm bên trái -->
     <div class="login-card p-4 rounded shadow-lg w-50">
       <h2 class="text-center mb-4">Đăng Nhập</h2>
       <div class="mb-3">
@@ -34,7 +33,6 @@
       </div>
     </div>
 
-    <!-- Icon Lottie nằm bên phải -->
     <DotLottieVue
       style="height: 500px; width: 500px; margin-left: 50px"
       autoplay
@@ -62,37 +60,16 @@ const login = () => {
     (u) => u.email === email.value && u.password === password.value
   );
 
-  // Kiểm tra tài khoản admin
   if (email.value === "admin@gmail.com" && password.value === "admin") {
-    localStorage.setItem("email", email.value); // Lưu email khi đăng nhập
-    localStorage.setItem("name", "Admin"); // Lưu tên người dùng admin
+    localStorage.setItem("email", email.value);
+    localStorage.setItem("name", "Admin");
     alert("Đăng nhập admin thành công!");
-    router.replace({ name: "Home" }); // Chuyển hướng về trang Home
-  }
-  // Kiểm tra tài khoản author1 và author2
-  else if (
-    email.value === "author1@gmail.com" &&
-    password.value === "author1"
-  ) {
-    localStorage.setItem("email", email.value); // Lưu email khi đăng nhập
-    localStorage.setItem("name", "Author 1"); // Lưu tên người dùng author 1
+    router.replace({ name: "Home" });
+  } else if (user) {
+    localStorage.setItem("email", user.email);
+    localStorage.setItem("name", user.name);
     alert("Đăng nhập thành công!");
-    router.replace({ path: "/author" }); // Chuyển hướng đến trang author
-  } else if (
-    email.value === "author2@gmail.com" &&
-    password.value === "author2"
-  ) {
-    localStorage.setItem("email", email.value); // Lưu email khi đăng nhập
-    localStorage.setItem("name", "Author 2"); // Lưu tên người dùng author 2
-    alert("Đăng nhập thành công!");
-    router.replace({ path: "/author" }); // Chuyển hướng đến trang author
-  }
-  // Kiểm tra tài khoản người dùng thông thường
-  else if (user) {
-    localStorage.setItem("email", user.email); // Lưu email khi đăng nhập
-    localStorage.setItem("name", user.name); // Lưu tên người dùng
-    alert("Đăng nhập thành công!");
-    router.replace({ path: "/" }); // Chuyển hướng về trang Home
+    router.replace({ path: "/" });
   } else {
     alert("Email hoặc mật khẩu không hợp lệ!");
   }
@@ -107,7 +84,7 @@ const login = () => {
 }
 
 .login-card {
-  width: 45%; /* Đặt chiều rộng form đăng nhập */
+  width: 45%;
   padding: 20px;
 }
 
@@ -123,7 +100,6 @@ h2 {
   color: white;
 }
 
-/* Điều chỉnh cho icon Lottie */
 .DotLottieVue {
   margin-left: 50px;
 }

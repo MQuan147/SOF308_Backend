@@ -11,12 +11,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="comment in comments" :key="comment.id">
+        <tr
+          v-for="comment in comments"
+          :key="comment.id"
+          @dblclick="goToBlog(comment.blogId)"
+          style="cursor: pointer"
+        >
           <td>{{ comment.text }}</td>
           <td>{{ getBlogTitle(comment.blogId) }}</td>
           <td>{{ comment.name }}</td>
           <td>
-            <button @click="deleteComment(comment.id)" class="btn btn-danger">
+            <button
+              @click.stop="deleteComment(comment.id)"
+              class="btn btn-danger"
+            >
               Xóa
             </button>
           </td>
@@ -28,7 +36,12 @@
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
+const goToBlog = (blogId) => {
+  router.push({ name: "BlogPost", params: { id: blogId } });
+};
 const comments = ref([]);
 
 // Lấy tất cả bình luận từ localStorage
@@ -48,7 +61,8 @@ const allComments = computed(() => {
 
 // Lấy tiêu đề bài viết từ localStorage dựa trên blogId
 const getBlogTitle = (blogId) => {
-  const blog = JSON.parse(localStorage.getItem(`blog-${blogId}`));
+  const blogs = JSON.parse(localStorage.getItem("blogs")) || []; // Lấy danh sách blog
+  const blog = blogs.find((b) => b.id === blogId); // Tìm blog theo id
   return blog ? blog.title : "Bài viết không tồn tại";
 };
 

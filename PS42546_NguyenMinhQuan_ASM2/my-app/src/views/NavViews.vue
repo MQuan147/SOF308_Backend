@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand"></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -15,7 +15,6 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <!-- Hiển thị Home và BlogList luôn -->
           <li class="nav-item">
             <router-link class="nav-link" to="/">Home</router-link>
           </li>
@@ -31,13 +30,13 @@
             <router-link class="nav-link" to="/register">Register</router-link>
           </li>
 
-          <!-- Hiển thị các mục khi đăng nhập bằng tài khoản Author -->
-          <li class="nav-item" v-if="isLoggedIn && userType === 'author'">
+          <li class="nav-item" v-if="isLoggedIn && userType === 'user'">
             <router-link class="nav-link" to="/blog-manage"
               >QL Blog</router-link
             >
           </li>
-          <!-- Hiển thị các mục khi đăng nhập bằng tài khoản Admin -->
+
+          <!-- Admin -->
           <li class="nav-item" v-if="isLoggedIn && userType === 'admin'">
             <router-link class="nav-link" to="/account-manage"
               >QL User</router-link
@@ -54,7 +53,10 @@
             >
           </li>
 
-          <!-- Hiển thị nút Logout khi đã đăng nhập -->
+          <li class="nav-item" v-if="isLoggedIn && userType === 'user'">
+            <router-link class="nav-link" to="/profile">Profile</router-link>
+          </li>
+
           <li class="nav-item" v-if="isLoggedIn">
             <a class="nav-link" href="#" @click="logout">Logout</a>
           </li>
@@ -96,10 +98,9 @@ const logout = () => {
   localStorage.removeItem("email");
   isLoggedIn.value = false;
   userType.value = "";
-  router.push({ name: "Login" }); // Chuyển hướng về trang đăng nhập
+  router.replace({ name: "Login" });
 };
 
-// Theo dõi thay đổi của route để cập nhật navbar
 watch(
   () => route.path,
   () => {
@@ -107,7 +108,6 @@ watch(
   }
 );
 
-// Kiểm tra trạng thái đăng nhập khi component được gắn
 checkLoginStatus();
 </script>
 
@@ -118,14 +118,15 @@ nav {
   left: 0;
   width: 100%;
   z-index: 1030;
-  margin-top: 80px; /* Đảm bảo navbar luôn ở phía trên các phần tử khác */
+  margin-top: 80px;
+  margin-bottom: 50px !important;
 }
 
 .container-fluid {
-  padding: 0 15px; /* Đảm bảo khoảng cách ngang hợp lý */
+  padding: 0 15px;
 }
 
 body {
-  padding-top: 60px; /* Chỉnh lại khoảng cách để không bị che bởi navbar */
+  padding-top: 60px;
 }
 </style>

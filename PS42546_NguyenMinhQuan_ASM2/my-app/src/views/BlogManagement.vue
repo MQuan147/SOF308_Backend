@@ -2,14 +2,14 @@
   <div class="container mt-5">
     <h1 class="mb-4">Quản lý Blog</h1>
 
-    <form @submit.prevent="addBlog">
+    <form @submit.prevent="handleSubmit">
       <div class="mb-3">
         <label for="title" class="form-label">Tiêu đề</label>
         <input
           type="text"
           class="form-control"
           id="title"
-          v-model="newBlog.title"
+          v-model="blogForm.title"
         />
       </div>
       <div class="mb-3">
@@ -18,7 +18,7 @@
           type="text"
           class="form-control"
           id="imageUrl"
-          v-model="newBlog.imageUrl"
+          v-model="blogForm.imageUrl"
         />
       </div>
       <div class="mb-3">
@@ -26,11 +26,21 @@
         <textarea
           class="form-control"
           id="content"
-          v-model="newBlog.content"
+          v-model="blogForm.content"
           rows="5"
         ></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Thêm Blog</button>
+      <button type="submit" class="btn btn-primary">
+        {{ isEditing ? "Cập nhật Blog" : "Thêm Blog" }}
+      </button>
+      <button
+        v-if="isEditing"
+        type="button"
+        class="btn btn-secondary ms-2"
+        @click="cancelEdit"
+      >
+        Hủy
+      </button>
     </form>
 
     <div v-if="blogs.length" class="mt-4">
@@ -56,9 +66,12 @@
                 width="100"
               />
             </td>
-            <td>{{ blog.author }}</td>
+            <td>{{ blog.userName }}</td>
             <td>{{ blog.date }}</td>
             <td>
+              <button @click="editBlog(blog)" class="btn btn-warning btn-sm">
+                Sửa
+              </button>
               <button
                 @click="deleteBlog(blog.id)"
                 class="btn btn-danger btn-sm"
@@ -76,7 +89,7 @@
       class="alert alert-success mt-4"
       role="alert"
     >
-      Blog đã được thêm thành công!
+      {{ isEditing ? "Cập nhật thành công!" : "Blog đã được thêm thành công!" }}
     </div>
   </div>
 </template>
@@ -85,62 +98,107 @@
 import { ref, computed } from "vue";
 import { useBlogStore } from "../stores/blog";
 
-// Trạng thái bài viết mới
-const newBlog = ref({
+const blogForm = ref({
+  id: null,
   title: "",
   imageUrl: "",
   content: "",
-  author: "", // Tên tác giả
-  date: "", // Ngày giờ thêm bài viết
+  userName: "",
+  date: "",
 });
 
-// Trạng thái hiển thị thông báo thành công
+const isEditing = ref(false);
 const showSuccessMessage = ref(false);
 
-// Lấy store
 const store = useBlogStore();
 
-// Lấy danh sách blogs từ store
-const blogs = computed(() => store.blogs);
+const email = localStorage.getItem("email");
+const name = localStorage.getItem("name");
 
-// Thêm blog mới
-const addBlog = () => {
-  const email = localStorage.getItem("email"); // Lấy email người dùng từ localStorage
+const isAdmin = email === "admin@gmail.com";
 
+const blogs = computed(() => {
+  return isAdmin ? store.blogs : store.getUserBlogs(name);
+});
+
+const handleSubmit = () => {
   if (!email) {
-    alert("Bạn cần đăng nhập để thêm Blog!");
+    alert("Bạn cần đăng nhập để thực hiện thao tác này!");
     return;
   }
 
-  // Gắn tên tác giả và ngày giờ hiện tại
-  newBlog.value.author = email;
-  newBlog.value.date = new Date().toLocaleString(); // Định dạng ngày giờ
+  if (isEditing.value) {
+    // Chỉnh sửa blog
+    store.updateBlog(blogForm.value);
+    showSuccessMessage.value = true;
+  } else {
+    // Thêm blog
+    blogForm.value.userName = name;
+    blogForm.value.date = new Date().toLocaleString();
+    store.addBlog(blogForm.value);
+    showSuccessMessage.value = true;
+  }
 
-  // Thêm blog vào store
-  store.addBlog(newBlog.value);
+  resetForm();
+};
 
-  // Reset bài viết mới và hiển thị thông báo thành công
-  newBlog.value = {
+const editBlog = (blog) => {
+  if (isAdmin || blog.userName === name) {
+    isEditing.value = true;
+    blogForm.value = { ...blog }; // Copy dữ liệu blog để chỉnh sửa
+  } else {
+    alert("Bạn không có quyền chỉnh sửa bài viết này!");
+  }
+};
+
+const cancelEdit = () => {
+  resetForm();
+};
+
+const resetForm = () => {
+  isEditing.value = false;
+  blogForm.value = {
+    id: null,
     title: "",
     imageUrl: "",
     content: "",
-    author: "",
+    userName: "",
     date: "",
   };
-  showSuccessMessage.value = true;
-
-  setTimeout(() => {
-    showSuccessMessage.value = false;
-  }, 3000);
+  showSuccessMessage.value = false;
 };
 
-// Xóa blog theo ID
 const deleteBlog = (id) => {
-  store.deleteBlog(id); // Gọi phương thức xóa từ store
+  const blog = store.blogs.find((b) => b.id === id);
+
+  if (isAdmin || (blog && blog.userName === name)) {
+    store.deleteBlog(id);
+  } else {
+    alert("Bạn không có quyền xóa bài viết này!");
+  }
 };
 </script>
 
 <style scoped>
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-dialog {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 500px;
+  width: 100%;
+}
 .container {
   margin-top: 190px !important;
 }

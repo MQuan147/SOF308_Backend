@@ -92,4 +92,7 @@ const blogs = computed(() => store.blogs);
 .container {
   margin-top: 160px !important;
 }
+.card {
+  height: 100%;
+}
 </style>

@@ -3,21 +3,24 @@
     <div class="row">
       <!-- Nội dung chính của bài viết -->
       <div class="col-md-8 blog-content">
-        <h1 class="blog-title mb-4">{{ blog.title }}</h1>
+        <h1 class="blog-title mb-4">
+          {{ blog?.title || "Bài viết không tồn tại" }}
+        </h1>
         <img
+          v-if="blog?.imageUrl"
           :src="blog.imageUrl"
           alt="Blog Image"
           class="img-fluid rounded blog-image"
         />
-        <div class="mt-4 blog-body">
+        <div v-if="blog?.content" class="mt-4 blog-body">
           <p>{{ blog.content }}</p>
         </div>
-        <div class="blog-footer mt-5">
+        <div class="blog-footer mt-5" v-if="blog">
           <div class="author-info d-flex justify-content-end">
             <div class="text-end">
-              <strong class="author-name">{{
-                blog.author || "Unknown Author"
-              }}</strong>
+              <strong class="author-name"
+                >By {{ blog.author || "Unknown Author" }}</strong
+              >
               <p class="text-muted mb-0">{{ blog.date }}</p>
             </div>
           </div>
@@ -57,11 +60,10 @@
 
     <!-- Phần bình luận -->
     <div class="comments-section mt-5">
-      <h5>Bình luận về bài viết: {{ blog.title }}</h5>
-      <!-- Hiển thị tiêu đề bài viết -->
+      <h5>Bình luận về bài viết: {{ blog?.title }}</h5>
       <div v-for="comment in comments" :key="comment.id" class="comment mb-3">
         <p class="den">
-          <strong class="den">{{ comment.name }}:</strong>{{ comment.text }}
+          <strong class="den">{{ comment.name }}:</strong> {{ comment.text }}
         </p>
       </div>
       <div v-if="isLoggedIn" class="mt-4">
@@ -70,6 +72,7 @@
           placeholder="Viết bình luận..."
           class="form-control"
           rows="3"
+          @keyup.enter="submitComment"
         ></textarea>
         <button @click="submitComment" class="btn btn-primary mt-2">
           Đăng Bình Luận
@@ -89,50 +92,62 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
+import { useRoute, onBeforeRouteUpdate } from "vue-router";
 import { useBlogStore } from "../stores/blog";
-import { useRoute } from "vue-router";
 
-// Lấy `id` từ props
+// Lấy `id` từ route params
 const route = useRoute();
-const id = route.params.id;
+const id = ref(route.params.id);
 
-// Trạng thái
 const newComment = ref("");
 const isLoggedIn = ref(!!localStorage.getItem("email")); // Kiểm tra người dùng đã đăng nhập
 
 // Store blogs
 const store = useBlogStore();
 
-// Lấy blog hiện tại
-const blog = computed(() =>
-  store.blogs.find((blog) => blog.id === parseInt(id))
-);
+// Khởi tạo dữ liệu blog và các bài viết liên quan
+const blog = ref(null);
+const relatedBlogs = ref([]);
+const comments = ref([]);
 
-// Lấy các blog liên quan
-const relatedBlogs = computed(() =>
-  store.blogs.filter((blog) => blog.id !== parseInt(id))
-);
+// Hàm cập nhật dữ liệu blog và liên quan
+const fetchBlogData = (blogId) => {
+  const blogIdInt = parseInt(blogId);
+  blog.value = store.blogs.find((blog) => blog.id === blogIdInt) || null;
+  relatedBlogs.value = store.blogs
+    .filter((relatedBlog) => relatedBlog.id !== blogIdInt)
+    .slice(0, 5);
 
-// Lấy danh sách bình luận
-const comments = computed(() => {
-  return JSON.parse(localStorage.getItem(`comments-${id}`)) || [];
+  // Lấy danh sách bình luận từ localStorage
+  comments.value =
+    JSON.parse(localStorage.getItem(`comments-${blogIdInt}`)) || [];
+};
+
+// Khởi tạo dữ liệu ban đầu
+fetchBlogData(id.value);
+
+// Cập nhật khi route thay đổi
+onBeforeRouteUpdate((to) => {
+  fetchBlogData(to.params.id);
 });
 
 // Thêm bình luận
 const submitComment = () => {
   if (newComment.value.trim() === "") return;
 
+  const blogIdInt = parseInt(id.value);
+
   const comment = {
     id: Date.now(),
-    name: localStorage.getItem("name") || "Anonymous", // Lấy tên người dùng từ localStorage
+    blogId: blogIdInt, // Thêm thông tin blogId
+    name: localStorage.getItem("name") || "Anonymous",
     text: newComment.value.trim(),
   };
 
   // Lưu bình luận vào localStorage
-  const currentComments = comments.value;
-  currentComments.push(comment);
-  localStorage.setItem(`comments-${id}`, JSON.stringify(currentComments));
+  comments.value.push(comment);
+  localStorage.setItem(`comments-${blogIdInt}`, JSON.stringify(comments.value));
 
   // Reset input
   newComment.value = "";
@@ -165,35 +180,91 @@ strong {
 /* Nền đen mờ cho phần nội dung chính */
 .blog-content {
   position: relative;
-  background-color: rgba(0, 0, 0, 0.7); /* Nền đen mờ */
+  background-color: rgba(0, 0, 0, 0.7);
   padding: 20px;
   border-radius: 10px;
-  color: white; /* Màu chữ trắng để dễ đọc trên nền đen */
+  color: white;
 }
 
 /* Phần bình luận */
 .comments-section {
-  background-color: #f8f9fa;
+  background-color: rgba(0, 0, 0, 0.8);
   padding: 20px;
   border-radius: 10px;
+  color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.comments-section h5 {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
 }
 
 .comment {
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.comment strong {
+  color: #10caf8;
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+.comment p {
+  margin: 0;
+  color: white;
 }
 
 textarea {
   width: 100%;
+  color: white;
+  border: 1px solid #495057;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #10caf8;
+  box-shadow: 0 0 5px #10caf8;
 }
 
 button {
   width: 100%;
+  border: none;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #10caf8;
+  color: white;
 }
 
 .den {
-  color: black !important;
+  color: white !important;
   text-decoration: none;
+}
+
+.den a {
+  color: white !important;
+  font-weight: bold;
+}
+
+.den a:hover {
+  color: #10caf8 !important;
 }
 </style>

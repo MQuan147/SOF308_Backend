@@ -123,9 +123,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-// Trạng thái
-const users = ref([]); // Danh sách người dùng
-const user = ref(null); // Người dùng đang chỉnh sửa
+const users = ref([]);
+const user = ref(null);
 
 // Tải danh sách người dùng từ localStorage
 const loadUsers = () => {
@@ -144,7 +143,7 @@ const updateUser = () => {
     users.value[index] = { ...user.value };
     localStorage.setItem("users", JSON.stringify(users.value));
     alert("Cập nhật thông tin người dùng thành công!");
-    user.value = null; // Reset form
+    user.value = null;
     loadUsers();
   } else {
     alert("Không thể cập nhật thông tin người dùng.");
@@ -158,7 +157,7 @@ const deleteUser = (email) => {
     localStorage.setItem("users", JSON.stringify(users.value));
     alert("Xóa người dùng thành công!");
     if (user.value && user.value.email === email) {
-      user.value = null; // Reset form nếu người dùng bị xóa đang được chỉnh sửa
+      user.value = null; // Reset form sau chỉnh sửa
     }
   }
 };

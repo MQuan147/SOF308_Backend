@@ -42,8 +42,20 @@
               d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"
             />
           </svg>
-          <i class="bi bi-clock me-1"></i> January 11, 2023
+          <i class="bi bi-clock me-1"></i>
+          {{
+            currentDateTime.toLocaleString("vi-VN", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              // hour: "2-digit",
+              // minute: "2-digit",
+              // second: "2-digit",
+            })
+          }}
         </span>
+
         <span class="separator"></span>
         <div class="ms-2 mb-2">
           <a href="#" class="text-dark text-decoration-none me-3">
@@ -134,6 +146,25 @@
 <script>
 export default {
   name: "HeaderComponent",
+  data() {
+    return {
+      currentDateTime: new Date(),
+    };
+  },
+  methods: {
+    updateTime() {
+      // Cập nhật thời gian hiện tại
+      this.currentDateTime = new Date();
+    },
+  },
+  mounted() {
+    // Thiết lập interval để cập nhật thời gian mỗi giây
+    this.timer = setInterval(this.updateTime, 1000);
+  },
+  beforeUnmount() {
+    // Xóa interval khi component bị hủy
+    clearInterval(this.timer);
+  },
 };
 </script>
 
